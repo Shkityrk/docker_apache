@@ -33,11 +33,11 @@ function ProtectedPage() {
         >
             <div
                 style={{
-                    backgroundImage: 'url(https://sun9-29.userapi.com/impg/b3B-9yvsVjX6KduhQ_vCNUhah0Xp3NDhNZ-hqQ/xK6ryOZ3GO4.jpg?size=485x320&quality=95&sign=f5a1491a29c5edb787e2409864f55311&type=album)',
+                    backgroundImage: 'url(https://i.pinimg.com/originals/9f/3f/53/9f3f53a78674ed04480f9327e42566ec.jpg)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    height: '320px',      // Высота картинки
-                    width: '485px',       // Ширина картинки
+                    height: '900px',      // Высота картинки
+                    width: '900px',       // Ширина картинки
                 }}
             />
             <button
