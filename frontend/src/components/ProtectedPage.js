@@ -27,11 +27,12 @@ function ProtectedPage() {
         <div
             style={{
                 position: 'relative',
-                height: '100vh',
+                minHeight: '100vh',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#f4f4f4',
+                padding: '20px',
             }}
         >
             <div
@@ -39,8 +40,10 @@ function ProtectedPage() {
                     backgroundImage: 'url(https://i.pinimg.com/originals/9f/3f/53/9f3f53a78674ed04480f9327e42566ec.jpg)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    height: '900px',
-                    width: '900px',
+                    height: '50vw', // Относительная ширина экрана
+                    width: '50vw',
+                    maxWidth: '900px', // Максимальная ширина
+                    maxHeight: '900px',
                 }}
             />
             <button
@@ -55,10 +58,35 @@ function ProtectedPage() {
                     border: 'none',
                     borderRadius: '5px',
                     cursor: 'pointer',
+                    fontSize: '1rem', // Размер шрифта
                 }}
             >
                 Выйти
             </button>
+
+            {/* Медиазапросы для маленьких экранов */}
+            <style>{`
+                @media (max-width: 768px) {
+                    div {
+                        height: 70vw; 
+                        width: 70vw;
+                    }
+                    button {
+                        padding: 8px 16px;
+                        font-size: 0.875rem; // Уменьшаем шрифт на мобильных
+                    }
+                }
+                @media (max-width: 480px) {
+                    div {
+                        height: 90vw; 
+                        width: 90vw;
+                    }
+                    button {
+                        padding: 6px 12px;
+                        font-size: 0.75rem; // Ещё меньше для очень маленьких экранов
+                    }
+                }
+            `}</style>
         </div>
     );
 }
