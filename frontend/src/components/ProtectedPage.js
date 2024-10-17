@@ -23,10 +23,6 @@ function ProtectedPage() {
         navigate('/');
     };
 
-    if (loading) {
-        return <div>Загрузка...</div>;  // Можно заменить на индикатор загрузки
-    }
-
     return (
         <div
             style={{
