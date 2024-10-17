@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Импортируем хук для навигации
 
 function Register() {
     const [userData, setUserData] = useState({
@@ -11,8 +10,6 @@ function Register() {
         password: '',
     });
     const [message, setMessage] = useState('');
-    const [isSuccess, setIsSuccess] = useState(null);
-    const navigate = useNavigate(); // Инициализируем навигацию
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -21,13 +18,8 @@ function Register() {
                 withCredentials: true,
             });
             setMessage('Регистрация прошла успешно. Теперь вы можете войти.');
-            setIsSuccess(true);
-            setTimeout(() => {
-                navigate('/'); // Редирект на страницу входа
-            }, 2000); // Задержка в 2 секунды перед редиректом
         } catch (err) {
             setMessage('Ошибка регистрации. Возможно, пользователь уже существует.');
-            setIsSuccess(false);
         }
     };
 
@@ -86,9 +78,7 @@ function Register() {
                             style={styles.input}
                         />
                     </div>
-                    {message && (
-                        <p style={isSuccess ? styles.success : styles.error}>{message}</p>
-                    )}
+                    {message && <p style={styles.error}>{message}</p>}
                     <button type="submit" style={styles.button}>Зарегистрироваться</button>
                 </form>
                 <p>
@@ -154,10 +144,6 @@ const styles = {
     },
     error: {
         color: 'red',
-        marginBottom: '10px',
-    },
-    success: {
-        color: 'green',
         marginBottom: '10px',
     },
     link: {

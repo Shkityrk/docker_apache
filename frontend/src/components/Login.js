@@ -5,8 +5,7 @@ import authService from '../services/authService';
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [isSuccess, setIsSuccess] = useState(null);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,25 +20,10 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // Попытка выполнить логин через authService
-            const response = await authService.login(username, password);
-
-            // Проверяем, есть ли в ответе сервера индикатор успешного логина
-            if (response.success) {
-                setMessage('Вход выполнен успешно');
-                setIsSuccess(true);
-                setTimeout(() => {
-                    navigate('/user');
-                }, 2000); // Задержка в 2 секунды перед редиректом
-            } else {
-                // Если логин неудачный, выводим сообщение об ошибке
-                setMessage('Неверное имя пользователя или пароль');
-                setIsSuccess(false);
-            }
+            await authService.login(username, password);
+            navigate('/user');
         } catch (err) {
-            // Ловим любую ошибку, произошедшую при логине
-            setMessage('Неверное имя пользователя или пароль');
-            setIsSuccess(false);
+            setError('Неверное имя пользователя или пароль');
         }
     };
 
@@ -68,9 +52,7 @@ function Login() {
                             style={styles.input}
                         />
                     </div>
-                    {message && (
-                        <p style={isSuccess ? styles.success : styles.error}>{message}</p>
-                    )}
+                    {error && <p style={styles.error}>{error}</p>}
                     <button type="submit" style={styles.button}>Войти</button>
                 </form>
                 <p>
@@ -80,6 +62,7 @@ function Login() {
         </div>
     );
 }
+
 const styles = {
     container: {
         display: 'flex',
