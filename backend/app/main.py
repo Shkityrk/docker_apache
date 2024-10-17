@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Response, Request
 from sqlalchemy.orm import Session
+from fastapi.responses import RedirectResponse
 
 from . import models, schemas
 from .database import engine, SessionLocal
@@ -42,7 +43,7 @@ def get_db():
         db.close()
 
 @app.post("/register", response_model=schemas.UserOut)
-def register(user_create: schemas.UserCreate, db: Session = Depends(get_db)):
+def register(user_create: schemas.UserCreate, response: Response, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(
         (models.User.username == user_create.username) |
         (models.User.email == user_create.email)
@@ -60,6 +61,13 @@ def register(user_create: schemas.UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": new_user.username}, expires_delta=access_token_expires
+    )
+    response.set_cookie(key="access_token", value=f"Bearer {access_token}", httponly=False)
+
+    # Перенаправляем на нужную страницу (например, на главную)
     return new_user
 
 @app.post("/login")
