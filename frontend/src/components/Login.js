@@ -12,7 +12,7 @@ function Login() {
         // Проверка токена при загрузке страницы
         authService.checkAuth().then((isAuthenticated) => {
             if (isAuthenticated) {
-                navigate('/home');
+                navigate('/user');
             }
         });
     }, [navigate]);
@@ -21,7 +21,7 @@ function Login() {
         e.preventDefault();
         try {
             await authService.login(username, password);
-            navigate('/home');
+            navigate('/user');
         } catch (err) {
             setError('Неверное имя пользователя или пароль');
         }

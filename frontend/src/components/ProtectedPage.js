@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
 
 function ProtectedPage() {
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -10,6 +11,8 @@ function ProtectedPage() {
             const isAuthenticated = await authService.checkAuth();
             if (!isAuthenticated) {
                 navigate('/');
+            } else {
+                setLoading(false);  // Если аутентификация успешна, убираем состояние загрузки
             }
         };
         checkAuthentication();
@@ -20,15 +23,19 @@ function ProtectedPage() {
         navigate('/');
     };
 
+    if (loading) {
+        return <div>Загрузка...</div>;  // Можно заменить на индикатор загрузки
+    }
+
     return (
         <div
             style={{
-                position: 'relative', // Родительский элемент должен быть относительным
-                height: '100vh',      // Занимаем всю высоту экрана
+                position: 'relative',
+                height: '100vh',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: '#f4f4f4', // фон для визуализации
+                backgroundColor: '#f4f4f4',
             }}
         >
             <div
@@ -36,8 +43,8 @@ function ProtectedPage() {
                     backgroundImage: 'url(https://i.pinimg.com/originals/9f/3f/53/9f3f53a78674ed04480f9327e42566ec.jpg)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    height: '900px',      // Высота картинки
-                    width: '900px',       // Ширина картинки
+                    height: '900px',
+                    width: '900px',
                 }}
             />
             <button
