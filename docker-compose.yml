@@ -43,19 +43,16 @@ services:
     networks:
       - app-network
 
-  apache:
+
+  nginx:
     build:
-      context: ./apache
+      context: ./nginx
       dockerfile: Dockerfile
-    container_name: apache
     ports:
-      - "8004:80"  # Изменен порт хоста на 8004
-    volumes:
-      - ./apache/conf/sites.conf:/usr/local/apache2/conf/sites.conf
-      - ./apache/html:/usr/local/apache2/htdocs/  # Для статических файлов (если необходимо)
+      - "8004:80"
     depends_on:
-      - backend
       - frontend
+      - backend
     networks:
       - app-network
 
