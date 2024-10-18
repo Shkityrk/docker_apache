@@ -55,9 +55,22 @@ services:
       - backend
     networks:
       - app-network
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    restart: unless-stopped
+    ports:
+      - "8080:8080"  # Порт Jenkins
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Позволяет Jenkins управлять Docker
+    networks:
+      - app-network
 
 volumes:
   db_data:
+  jenkins_home:
 
 networks:
   app-network:
