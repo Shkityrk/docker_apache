@@ -2,9 +2,9 @@ pipeline {
     agent { docker { image 'docker:19.03.12' } }
 
      environment {
-            BACKEND_ENV_CONTENT = credentials('21ae7c95-8d44-4f45-9178-327c8a5f7a45')
-            FRONTEND_ENV_CONTENT = credentials('ae062bed-94f0-4bd2-a7a4-84298806603a')
-            HOSTS_CONTENT = credentials('5f208c1b-0e07-4e88-a5da-79e19fc5d8f9')
+            BACKEND_ENV_CONTENT = credentials('b8366472-fb81-4116-8fac-dc05974e7229')
+            FRONTEND_ENV_CONTENT = credentials('e6b9d420-2bac-4292-bdb8-4d44246cafd2')
+            HOSTS_CONTENT = credentials('ebed41e1-8211-4f00-9ca5-0cb791af1fec')
         }
 
 
